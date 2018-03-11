@@ -49,7 +49,9 @@ For SQL authentication.
 "Could not load JDBC driver: ..."
   1) This error is most likely because you do not have the correct version installed in the correct location.
   
-  
+ScreenShots:
+(current output example)
+https://gyazo.com/5d83146ac3e5de629fdc71f57339a330
 
   
 
