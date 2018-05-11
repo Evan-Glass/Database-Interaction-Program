@@ -1,0 +1,185 @@
+CREATE TABLE EMPLOYEE (
+  emp_id       INTEGER		PRIMARY KEY,
+  emp_fname    VARCHAR(20)	NULL,
+  emp_lname    VARCHAR(25)	NOT NULL,
+  emp_dob      DATE			NOT NULL,
+  manager_id   INTEGER		NULL,
+  emp_hiredate DATE         NOT NULL,
+  emp_title    VARCHAR(45)	NOT NULL
+);
+
+CREATE TABLE THEATER_LOCATION (
+  location_id		INTEGER			PRIMARY KEY,
+  emp_id			INTEGER			NULL,
+  location_address  VARCHAR(255)	NULL,
+  location_title	varchar(255)	NULL
+  FOREIGN KEY (emp_id) REFERENCES employee ON UPDATE CASCADE
+);
+
+CREATE TABLE MOVIE (
+  movie_id		INTEGER		PRIMARY KEY,
+  release_date  DATE		NOT NULL,
+  title			VARCHAR(40) NOT NULL,
+  movie_cost    NUMERIC(8,2)   NULL,
+  movie_genre	VARCHAR(20) NULL
+);
+
+CREATE TABLE MOVIE_LOCATION (
+
+  movie_id		INTEGER        NOT NULL,
+  location_id   INTEGER        NOT NULL,
+  movie_loc_id  INTEGER		   PRIMARY KEY,
+  FOREIGN KEY (movie_id) REFERENCES movie ON UPDATE CASCADE,
+  FOREIGN KEY (location_id) REFERENCES theater_location ON UPDATE CASCADE
+);
+
+CREATE TABLE SCREEN (
+  screen_id      INTEGER  PRIMARY KEY,
+  screen_number  INTEGER  NOT NULL,
+  total_seats    INTEGER  NOT NULL
+);
+
+CREATE TABLE SHOWTIME (
+  showtime_id     INTEGER		PRIMARY KEY,
+  screen_id		  INTEGER		NOT NULL,
+  movie_id		  INTEGER		NOT NULL,
+  start_time	  VARCHAR(20)	NULL,
+  end_time		  VARCHAR(20)   NULL,
+  FOREIGN KEY (screen_id) REFERENCES screen ON UPDATE CASCADE,
+  FOREIGN KEY (movie_id) REFERENCES movie ON UPDATE CASCADE
+);
+
+CREATE TABLE CUSTOMER (
+  cust_id		INTEGER		PRIMARY KEY,
+  cust_fname	VARCHAR(20) NOT NULL,
+  cust_lname	VARCHAR(20) NOT NULL,
+  cust_email	VARCHAR(70) NULL
+);
+
+CREATE TABLE TICKET (
+  ticket_id			INTEGER		PRIMARY KEY,
+  customer_id	    INTEGER		NOT NULL,
+  movie_id			INTEGER	    NOT NULL,
+  showtime_id			INTEGER		NOT NULL,
+  purchase_date		DATE		NULL,
+  FOREIGN KEY (customer_id) REFERENCES customer ON UPDATE CASCADE,
+  FOREIGN KEY (movie_id) REFERENCES movie ON UPDATE CASCADE
+);
+
+--drop table ticket;
+--drop table customer;
+--drop table showtime;
+--drop table screen;
+--drop table movie_location;
+--drop table movie;
+--drop table theater_location;
+--drop table employee;
+
+
+
+
+--Insert data
+--EMPLOYEE
+INSERT INTO EMPLOYEE VALUES (84254, 'CLINTON', 'SEYMOUR', '22-SEP-82', 2, '12-JUN-17', 'CONCESSIONS MANAGER');
+INSERT INTO EMPLOYEE VALUES (83868, 'ROBIN', 'CAMPBELL', '16-DEC-79', 1, '29-OCT-08', 'BRANCH MANAGER');
+INSERT INTO EMPLOYEE VALUES (84511, 'ILEANA', 'CHURCH', '12-JUN-90', 2, '12-FEB-15', 'FLOOR MANAGER');
+INSERT INTO EMPLOYEE VALUES (83838, 'LEN', 'FLORES', '05-JAN-94', 3, '01-FEB-17', 'FLOOR ASSOCIATE');
+INSERT INTO EMPLOYEE VALUES (83630, 'BRENDAN', 'DOVE', '30-JUL-96', 3, '20-JAN-17', 'FLOOR ASSOCIATE');
+
+--THEATER_LOCATION
+INSERT INTO THEATER_LOCATION VALUES (12, 83868, '1625 BAY VIEW DRIVE', 'Maximum Cinemas');
+INSERT INTO THEATER_LOCATION VALUES (13, 83868, '1777 EASTWIND COURT', 'Regal Cinemas at Eastwind');
+INSERT INTO THEATER_LOCATION VALUES (11, 83868, '1286 RICHARD EVELYN BYRD STREET', 'Byrd Memorial Cinema');
+
+--MOVIE
+INSERT INTO MOVIE VALUES (1, '12-APR-18', 'The Cesar Family Christmas', 39.95, 'FAMILY');
+INSERT INTO MOVIE VALUES (2, '12-APR-18', 'Smokey Mountain Wildlife', 65.95, 'ACTION');
+INSERT INTO MOVIE VALUES (3, '18-APR-18', 'Richard Goodhope', 59.95, 'DRAMA');
+INSERT INTO MOVIE VALUES (4, '07-MAY-18', 'Beatnik Fever', 29.95, 'COMEDY');
+INSERT INTO MOVIE VALUES (5, '23-APR-18', 'Constant Companion', 89.95, 'DRAMA');
+INSERT INTO MOVIE VALUES (6, '09-MAY-18', 'Where Hope Dies', 25.49, 'DRAMA');
+INSERT INTO MOVIE VALUES (7, '08-MAY-18', 'Time to Burn',50.04, 'ACTION');
+
+
+--MOVIE_LOCATION
+INSERT INTO MOVIE_LOCATION VALUES (1, 12, 42211);
+INSERT INTO MOVIE_LOCATION VALUES (2, 12, 45560);
+INSERT INTO MOVIE_LOCATION VALUES (3, 12, 51234);
+INSERT INTO MOVIE_LOCATION VALUES (4, 13, 56234);
+INSERT INTO MOVIE_LOCATION VALUES (5, 13, 75423);
+INSERT INTO MOVIE_LOCATION VALUES (6, 11, 59234);
+INSERT INTO MOVIE_LOCATION VALUES (7, 11, 98761);
+
+
+--SCREEN
+INSERT INTO SCREEN VALUES (112, 1, 120);
+INSERT INTO SCREEN VALUES (234, 2, 140);
+INSERT INTO SCREEN VALUES (356, 3, 140);
+INSERT INTO SCREEN VALUES (478, 4, 60);
+INSERT INTO SCREEN VALUES (532, 5, 60);
+INSERT INTO SCREEN VALUES (656, 6, 60);
+INSERT INTO SCREEN VALUES (711, 7, 120);
+INSERT INTO SCREEN VALUES (821, 8, 120);
+
+--SHOWTIME
+INSERT INTO SHOWTIME VALUES (199, 112, 1, '4:20 PM', '5:45 PM');
+INSERT INTO SHOWTIME VALUES (299, 234, 2, '5:45 PM', '7:10 PM');
+INSERT INTO SHOWTIME VALUES (399, 112, 3, '6:00 PM', '8:20 PM');
+INSERT INTO SHOWTIME VALUES (499, 356, 4, '8:45 PM', '10:30 PM');
+INSERT INTO SHOWTIME VALUES (599, 234, 5, '7:00 PM', '8:45 PM');
+INSERT INTO SHOWTIME VALUES (699, 356, 6, '11:00 AM', '1:20 PM');
+INSERT INTO SHOWTIME VALUES (799, 112, 7, '10:00 AM', '12:20 PM');
+INSERT INTO SHOWTIME VALUES (899, 356, 7, '9:00 AM', '11:20 AM');
+
+--CUSTOMER
+INSERT INTO CUSTOMER VALUES (372, 'DENNY', 'WATERS', 'DWstrongman@yahoo.com');
+INSERT INTO CUSTOMER VALUES (373, 'GISELE', 'HUBBARD', 'GHubbard@gmail.com');
+INSERT INTO CUSTOMER VALUES (374, 'WYNONA', 'RANSOM', 'RandomRansom@yahoo.com');
+INSERT INTO CUSTOMER VALUES (375, 'JONAS', 'HOSKINS', 'HoppinsHoskins66@gmail.com');
+INSERT INTO CUSTOMER VALUES (376, 'QUINN', 'HURD', 'turdHURD@gmail.com');
+INSERT INTO CUSTOMER VALUES (377, 'DARON', 'MATOS', 'DannyBOYDaron@rocketmail.com');
+INSERT INTO CUSTOMER VALUES (378, 'LEOPOLDO', 'SLAUGHTER', 'ISLAUGHTER@LEOPOLDO.com');
+
+--TICKET
+INSERT INTO TICKET VALUES (45678, 372, 1, 199, '12-APR-18');
+INSERT INTO TICKET VALUES (34567, 373, 2, 299, '12-APR-18');
+INSERT INTO TICKET VALUES (23457, 374, 3, 399, '11-APR-18');
+INSERT INTO TICKET VALUES (12347, 375, 3, 399, '12-APR-18');
+INSERT INTO TICKET VALUES (66543, 376, 3, 399, '12-APR-18');
+INSERT INTO TICKET VALUES (61112, 377, 5, 599, '13-APR-18');
+INSERT INTO TICKET VALUES (12346, 378, 7, 799, '12-APR-18');
+
+--View tables
+
+select * from customer;
+
+select * from EMPLOYEE;
+
+select * from MOVIE;
+
+select * from MOVIE_LOCATION;
+
+select * from SCREEN;
+
+select * from SHOWTIME;
+
+select * from THEATER_LOCATION;
+
+select * from TICKET;
+
+
+--some Queries used in program
+
+select MOVIE_id as 'Movie ID', MOVIE_GENRE as Genre, MOVIE_COST as Cost from MOVIE where MOVIE_COST > 20;
+
+SELECT * FROM INFORMATION_SCHEMA.TABLES;
+
+select * from sysdiagrams;
+drop table sysdiagrams;
+
+select * from ;
+
+select * from TICKET t, CUSTOMER c WHERE t.customer_id = c.cust_id and ticket_id LIKE '%%';
+
+select title as 'Movie Title', start_time as 'Start', end_time as 'End', screen_ID as 'Screen Number', location_title as 'Location' from MOVIE m, SHOWTIME s, MOVIE_LOCATION ml, THEATER_LOCATION tl where m.movie_id = s.movie_id and m.movie_id = ml.movie_id and ml.location_id = tl.location_id and tl.location_id =
+select * from theater_location;

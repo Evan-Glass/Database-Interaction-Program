@@ -3,26 +3,27 @@
 
 
 Repository for a current project I am working on.
-Creating a Java program with a GUI, which will be able to connect to SQL server either on a local machine or database hosted over
-the internet. 
+Creating a JavaFX program, which connectst to DBMS either on a local machine or database hosted over the internet. 
 
 I would put line numbers, but I am updating the program often
 
-SQLServer_1 first creates an instance with microsoft JDBC server.
-As of right now, the program takes a static connection string with sql server name, port number, database name, and login method (SQL authentication or windows integrated).
-  (will update to accept a string which is built from input from GUI)
+Currently the JAR file may not work on your end, make sure you have the newest version of JDK installed. Connection pane is not set up correctly at this time, so you would only be able to look around the GUI without any connection to a database.
 
-ResultSet is then used to store the object retrieved from the database via custom SQL query, and instantiates another object for metadata.
+To Do:
+	-Create incremental queries. i.e. you put information into two places, movie theater and movie price, for example, and you receive a new query
+	-regex or input validation preventing the user from spamming the server with false requests
+	-Further security for SQL injection
+	-More user-friendly layout
+	-input default values into connection interface, along with an option to save future default values based on user variables
+	-implement a troubleshooting / help option into the GUI in case people have issues
 
-Output is parsed through an initial for loop, which prints the column names of the database through meta data object.
-
-The next for loop is used to parse the actual data from resultset, and formats it under the column names. 
-  (mostly used for select statements, will add seperate methods for manipulative SQL commands)
-  
-each step has exception handling.
+	
+Future possibilities:
+	-store a local version of database to pull data from, to decrease amount of processing power needed from the server from user interaction
+	-create a Login system, where administrators would have access to edit tables, and potentially other elevated priveleges
+	-option for choosing a connection other than SQL server in the connection scene. This would require new logic in buttons, changing queries behind buttons based on which database connection was given.
 
 TroubleShooting: 
-
 
 "JDBC error: ..."
 1) Check that JDBC is installed in your JDE classpath, and you are running the most recent version of JDK.
@@ -48,10 +49,5 @@ For SQL authentication.
 
 "Could not load JDBC driver: ..."
   1) This error is most likely because you do not have the correct version installed in the correct location.
-  
-ScreenShots:
-(current output example)
-https://gyazo.com/5d83146ac3e5de629fdc71f57339a330
 
-  
 
