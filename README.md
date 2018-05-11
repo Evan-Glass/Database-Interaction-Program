@@ -12,17 +12,24 @@ Currently the JAR file may not work on your end, make sure you have the newest v
 To Do:
 
 -Create incremental queries. i.e. you put information into two places, movie theater and movie price, for example, and you receive a new query.
+
 -regex or input validation preventing the user from spamming the server with false requests
+
 -Further security for SQL injection
+
 -More user-friendly layout
+
 -input default values into connection interface, along with an option to save future default values based on user variables
+
 -implement a troubleshooting / help option into the GUI in case people have issues
 
 	
 Future possibilities:
 
 -store a local version of database to pull data from, to decrease amount of processing power needed from the server from user interaction
+
 -create a Login system, where administrators would have access to edit tables, and potentially other elevated priveleges
+
 -option for choosing a connection other than SQL server in the connection scene. This would require new logic in buttons, changing queries behind buttons based on which database connection was given.
 
 TroubleShooting: 
